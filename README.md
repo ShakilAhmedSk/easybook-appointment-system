@@ -60,5 +60,5 @@ A full-stack **Appointment Booking System** built with **React + Vite + Tailwind
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/your-username/easybook-appointment-system.git
+git https://github.com/ShakilAhmedSk/easybook-appointment-system.git
 cd easybook-appointment-system
