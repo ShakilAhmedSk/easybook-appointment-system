@@ -1,16 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {NavLink} from 'react-router-dom'
 
 function Navbar() {
+    const [menuOpen, setMenuOpen]=useState(false);
   return (
+
+    <>
+
             <div className='flex flex-row justify-between px-4 py-2 bg-slate-200 h-16 items-center'>
           {/* Logo */}
           <div>
             <h1 className='font-montserrat text-3xl font-bold text-red-500'>EasyBook</h1>
           </div>
-        
+          {/* Hamburger For Mobile */}
+          <button className="lg:hidden text-4xl "
+            onClick={()=>setMenuOpen(!menuOpen)}
+          >☰</button>
           {/* Navbar Section */}
-          <div className='flex flex-row gap-9 items-center'>
+          <div className='hidden  lg:flex flex-row gap-9 items-center'>
             <nav>
               <ul className='flex flex-row gap-8 items-center'>
                 <li>
@@ -27,7 +34,7 @@ function Navbar() {
                 </li>
               </ul>
             </nav>
-        
+
             {/* Buttons for Login & Register */}
             <div className='flex flex-row gap-3 items-center'>
               <button className="text-xl bg-blue-500 text-white hover:bg-blue-700 px-4 py-2 rounded transition-colors duration-300">Login</button>
@@ -35,6 +42,22 @@ function Navbar() {
             </div>
           </div>
         </div>
+
+        {menuOpen && (
+          <div className="flex flex-col items-start gap-3 mt-2 lg:hidden float-end">
+            <NavLink to="/" className="text-lg">Home</NavLink>
+            <NavLink to="/Services" className="text-lg">Services</NavLink>
+            <NavLink to="/About" className="text-lg">About</NavLink>
+            <NavLink to="/Contact" className="text-lg">Contact</NavLink>
+            <div className="flex flex-col gap-2">
+              <button className="bg-blue-500 text-white px-4 py-1 rounded">Login</button>
+              <button className="bg-blue-500 text-white px-4 py-1 rounded">Register</button>
+            </div>
+          </div>
+        )}
+
+
+        </>
 
   )
 }
