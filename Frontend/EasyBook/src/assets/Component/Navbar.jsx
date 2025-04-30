@@ -13,7 +13,7 @@ function Navbar() {
             <h1 className='font-montserrat text-3xl font-bold text-red-500'>EasyBook</h1>
           </div>
           {/* Hamburger For Mobile */}
-          <button className="lg:hidden text-4xl "
+          <button className="lg:hidden text-4xl text-gray-500 hover:text-blue-500 "
             onClick={()=>setMenuOpen(!menuOpen)}
           >☰</button>
           {/* Navbar Section */}
@@ -44,11 +44,11 @@ function Navbar() {
         </div>
 
         {menuOpen && (
-          <div className="flex flex-col items-start gap-3 mt-2 lg:hidden float-end">
-            <NavLink to="/" className="text-lg">Home</NavLink>
-            <NavLink to="/Services" className="text-lg">Services</NavLink>
-            <NavLink to="/About" className="text-lg">About</NavLink>
-            <NavLink to="/Contact" className="text-lg">Contact</NavLink>
+          <div className="flex flex-col items-center gap-3 lg:hidden float-end bg-slate-200 w-1/2  py-4">
+            <NavLink to="/" onClick={()=>setMenuOpen(!menuOpen)} className="text-lg hover:text-blue-500 ">Home</NavLink>
+            <NavLink to="/Services" onClick={()=>setMenuOpen(!menuOpen)} className="text-lg hover:text-blue-500">Services</NavLink>
+            <NavLink to="/About" onClick={()=>setMenuOpen(!menuOpen)} className="text-lg hover:text-blue-500">About</NavLink>
+            <NavLink to="/Contact" onClick={()=>setMenuOpen(!menuOpen)} className="text-lg hover:text-blue-500">Contact</NavLink>
             <div className="flex flex-col gap-2">
               <button className="bg-blue-500 text-white px-4 py-1 rounded">Login</button>
               <button className="bg-blue-500 text-white px-4 py-1 rounded">Register</button>
