@@ -8,6 +8,10 @@ import About from './assets/Pages/About';
 import Contact from './assets/Pages/Contact';
 import Services from './assets/Pages/Services';
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+
 const router = createBrowserRouter([
   {
     path: '/',
