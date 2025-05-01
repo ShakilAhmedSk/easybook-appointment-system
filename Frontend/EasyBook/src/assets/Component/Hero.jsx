@@ -2,13 +2,14 @@ import React from 'react';
 import { FiCalendar, FiArrowRight, FiSmartphone, FiUserCheck } from 'react-icons/fi';
 import Slider from 'react-slick';
 
+
 const slides = [
   {
     title: 'EasyBook',
     subtitle: 'Your Hassle-Free Appointment Booking System',
     description: 'Schedule appointments in just a few clicks. Ideal for clinics, salons, freelancers, and more.',
     icon: <FiCalendar className="w-5 h-5" />,
-    img: 'https://cdn-icons-png.flaticon.com/512/2947/2947560.png',
+    img: '/images/image/smart-timer.png',
     cta: 'Book Now',
   },
   {
@@ -16,7 +17,7 @@ const slides = [
     subtitle: 'Never Miss an Appointment',
     description: 'Send automatic reminders and manage time slots easily with our intuitive dashboard.',
     icon: <FiUserCheck className="w-5 h-5" />,
-    img: 'https://cdn-icons-png.flaticon.com/512/3771/3771322.png',
+    img: '/images/image/booking.png',
     cta: 'Try It Now',
   },
   {
@@ -24,7 +25,7 @@ const slides = [
     subtitle: 'Book On-the-Go',
     description: 'Your customers can book from any device, anytime, anywhere.',
     icon: <FiSmartphone className="w-5 h-5" />,
-    img: 'https://cdn-icons-png.flaticon.com/512/3844/3844724.png',
+    img: '/images/image/mobile-frendly.png',
     cta: 'Get Started',
   },
 ];
@@ -47,7 +48,7 @@ const Hero = () => {
         <Slider {...settings}>
           {slides.map((slide, index) => (
             <div key={index}>
-              <div className="flex flex-col md:flex-row items-center gap-10">
+              <div className="flex flex-col md:flex-row items-center gap-10 px-2">
                 {/* Text Content */}
                 <div className="flex-1 text-center md:text-left">
                   <h1 className="text-4xl md:text-5xl font-bold text-slate-800 mb-4">

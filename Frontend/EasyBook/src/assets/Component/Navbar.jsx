@@ -50,7 +50,7 @@ function Navbar() {
         </div>
 
         {menuOpen && (
-          <div className="flex flex-col items-center gap-3 lg:hidden float-end bg-slate-200 w-1/2  py-4">
+          <div className=" z-50 fixed top-16 right-0 flex flex-col items-center gap-3 lg:hidden float-end bg-slate-200 w-1/2  py-4">
             <NavLink to="/" onClick={()=>setMenuOpen(!menuOpen)} className="text-lg hover:text-blue-500 ">Home</NavLink>
             <NavLink to="/Services" onClick={()=>setMenuOpen(!menuOpen)} className="text-lg hover:text-blue-500">Services</NavLink>
             <NavLink to="/About" onClick={()=>setMenuOpen(!menuOpen)} className="text-lg hover:text-blue-500">About</NavLink>
