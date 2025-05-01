@@ -1,4 +1,5 @@
 import React from 'react';
+import Pattern from '../../../public/images/image/subtle-prism.svg'
 import { FiCalendar, FiArrowRight, FiSmartphone, FiUserCheck } from 'react-icons/fi';
 import Slider from 'react-slick';
 
@@ -43,12 +44,13 @@ const Hero = () => {
   };
 
   return (
-    <section className="bg-gradient-to-r from-blue-50 to-slate-100 py-20 px-6 md:px-20">
-      <div className="max-w-6xl mx-auto">
+    <section className="bg-gradient-to-r from-blue-50 to-slate-100 py-20  px-0 md:px-10 " 
+    style={{backgroundImage: `url(${Pattern})`}}>
+      <div className="max-w-15xl mx-auto">
         <Slider {...settings}>
           {slides.map((slide, index) => (
             <div key={index}>
-              <div className="flex flex-col md:flex-row items-center gap-10 px-2">
+              <div className="flex flex-col md:flex-row items-center gap-10 px-1">
                 {/* Text Content */}
                 <div className="flex-1 text-center md:text-left">
                   <h1 className="text-4xl md:text-5xl font-bold text-slate-800 mb-4">

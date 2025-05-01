@@ -8,7 +8,7 @@ function Navbar() {
 
     <>
 
-            <div className='flex flex-row justify-between px-4 py-2 bg-slate-200 h-16 items-center'>
+          <div className="fixed top-0 left-0 right-0 flex flex-row justify-between px-4 py-2 bg-slate-300 h-16 items-center z-10">
           {/* Logo */}
           <div>
             <h1 className='font-montserrat text-3xl font-bold text-red-500'>EasyBook</h1>
@@ -25,10 +25,10 @@ function Navbar() {
                   <NavLink to="/" className="text-xl hover:text-blue-500 transition-colors duration-300">Home</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/Services" className="text-xl hover:text-blue-500 transition-colors duration-300">Services</NavLink>
+                  <NavLink to="/About" className="text-xl hover:text-blue-500 transition-colors duration-300">About</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/About" className="text-xl hover:text-blue-500 transition-colors duration-300">About</NavLink>
+                  <NavLink to="/Services" className="text-xl hover:text-blue-500 transition-colors duration-300">Services</NavLink>
                 </li>
                 <li>
                   <NavLink to="/Contact" className="text-xl hover:text-blue-500 transition-colors duration-300">Contact</NavLink>
@@ -52,8 +52,8 @@ function Navbar() {
         {menuOpen && (
           <div className=" z-50 fixed top-16 right-0 flex flex-col items-center gap-3 lg:hidden float-end bg-slate-200 w-1/2  py-4">
             <NavLink to="/" onClick={()=>setMenuOpen(!menuOpen)} className="text-lg hover:text-blue-500 ">Home</NavLink>
-            <NavLink to="/Services" onClick={()=>setMenuOpen(!menuOpen)} className="text-lg hover:text-blue-500">Services</NavLink>
             <NavLink to="/About" onClick={()=>setMenuOpen(!menuOpen)} className="text-lg hover:text-blue-500">About</NavLink>
+            <NavLink to="/Services" onClick={()=>setMenuOpen(!menuOpen)} className="text-lg hover:text-blue-500">Services</NavLink>
             <NavLink to="/Contact" onClick={()=>setMenuOpen(!menuOpen)} className="text-lg hover:text-blue-500">Contact</NavLink>
             <div className="flex flex-col gap-2">
               <button className=" text-lg text-gray-600 px-4 py-1 rounded-lg flex flex-row items-center gap-1">
