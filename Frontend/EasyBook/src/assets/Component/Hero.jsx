@@ -1,5 +1,5 @@
 import React from 'react';
-import Pattern from '../../../public/images/image/subtle-prism.svg'
+import Pattern from '../../../public/images/image/subtle-prism.svg';
 import { FiCalendar, FiArrowRight, FiSmartphone, FiUserCheck } from 'react-icons/fi';
 import Slider from 'react-slick';
 
