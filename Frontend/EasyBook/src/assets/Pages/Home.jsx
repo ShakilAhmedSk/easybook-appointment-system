@@ -4,6 +4,10 @@ import Features from '../Component/Features'
 import HowItWorks from '../Component/HowItWorks'
 import FAQ from '../Component/Faq'
 import PartnerTestimonial from '../Component/PartnerTestimonial'
+import UserFeedback from '../Component/UserFeedback'
+import TrustedBy from '../Component/TrustedBy'
+import LocationAvailability from '../Component/LocationAvailability'
+import Footer from '../Component/Footer'
 
 const Home = () => {
   return (
@@ -12,7 +16,11 @@ const Home = () => {
       <Features></Features>
       <HowItWorks></HowItWorks>
       <PartnerTestimonial></PartnerTestimonial>
+      <TrustedBy></TrustedBy>
+      <UserFeedback></UserFeedback>
       <FAQ></FAQ>
+      <LocationAvailability></LocationAvailability>
+      <Footer></Footer>
     </div>
   )
 }
