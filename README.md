@@ -1,4 +1,6 @@
+# What the app looks like
 
+![screenshot1](https://github.com/ShakilAhmedSk/easybook-appointment-system/blob/main/demo/demo.gif)
 # EasyBook – Appointment Booking System
 
 A full-stack **Appointment Booking System** built with **React + Vite + Tailwind CSS** for the frontend and **Spring Boot + MySQL** for the backend. Users can book appointments with service providers, while providers can manage their availability and bookings via a dashboard.
