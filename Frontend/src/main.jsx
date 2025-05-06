@@ -11,6 +11,7 @@ import About from './assets/Pages/About';
 import Contact from './assets/Pages/Contact';
 import Services from './assets/Pages/Services';
 import Signup from './assets/Pages/Signup';
+import Login from './assets/Pages/Login';
 
 
 
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       { path: 'contact', element: <Contact /> },
       { path: 'services', element: <Services /> },
       { path: 'signup', element: <Signup /> },
+      { path: 'Login', element: <Login /> },
     ],
   },
 ]);
