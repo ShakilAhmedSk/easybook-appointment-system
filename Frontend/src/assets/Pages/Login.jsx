@@ -1,23 +1,34 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    role: "user",
+    remember: false,
   });
 
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Login data:", formData);
-    // TODO: Send login data to backend
+
+    if (formData.email && formData.password) {
+      navigate("/");
+    } else {
+      alert("Please enter both email and password.");
+    }
   };
 
   return (
@@ -29,51 +40,54 @@ const Login = () => {
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
 
         <div className="mb-4">
-          <label className="block mb-1 font-medium">Email</label>
           <input
             type="email"
             name="email"
             required
             value={formData.email}
             onChange={handleChange}
-            placeholder="Enter your email"
+            placeholder="Email"
             className="w-full border px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Password</label>
-          <div className="relative">
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              required
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter your password"
-              className="w-full border px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword((prev) => !prev)}
-              className="absolute top-2 right-3 text-sm text-blue-600"
-            >
-              {showPassword ? "Hide" : "Show"}
-            </button>
-          </div>
+        <div className="mb-4 relative">
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            required
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Password"
+            className="w-full border px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-2 text-sm text-blue-600"
+          >
+            {showPassword ? "Hide" : "Show"}
+          </button>
         </div>
 
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Role</label>
-          <select
-            name="role"
-            value={formData.role}
-            onChange={handleChange}
-            className="w-full border px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        <div className="flex items-center justify-between mb-4">
+          <label className="flex items-center text-sm">
+            <input
+              type="checkbox"
+              name="remember"
+              checked={formData.remember}
+              onChange={handleChange}
+              className="mr-2"
+            />
+            Remember me
+          </label>
+          <button
+            type="button"
+            className="text-sm text-blue-600 hover:underline"
+            onClick={() => alert("Redirect to forgot password page")}
           >
-            <option value="user">User</option>
-            <option value="service-partner">Service Partner</option>
-          </select>
+            Forgot Password?
+          </button>
         </div>
 
         <button

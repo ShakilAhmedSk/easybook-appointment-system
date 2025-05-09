@@ -41,7 +41,9 @@ function Navbar() {
 
             {/* Buttons for Login & Register */}
             <div className='flex flex-row gap-3 items-center'>
-            <button className="flex items-center gap-2 text-lg text-gray-800 hover:text-blue-700 px-4 py-2 rounded transition-colors duration-300">
+            <button
+            onClick={() => navigate('/login')}
+            className="flex items-center gap-2 text-lg text-gray-800 hover:text-blue-700 px-4 py-2 rounded transition-colors duration-300">
             <FiLogIn className="w-5 h-5" />
               Login
             </button>
@@ -61,7 +63,10 @@ function Navbar() {
             <NavLink to="/Services" onClick={()=>setMenuOpen(!menuOpen)} className="text-lg hover:text-blue-500">Services</NavLink>
             <NavLink to="/Contact" onClick={()=>setMenuOpen(!menuOpen)} className="text-lg hover:text-blue-500">Contact</NavLink>
             <div className="flex flex-col gap-2">
-              <button className=" text-lg text-gray-600 px-4 py-1 rounded-lg flex flex-row items-center gap-1">
+              <button 
+                onClick={() => {navigate('/login'),setMenuOpen(false);}}
+
+              className=" text-lg text-gray-600 px-4 py-1 rounded-lg flex flex-row items-center gap-1 hover:text-blue-700">
               <FiLogIn className="w-5 h-5" />
               Login</button>
               <button 
