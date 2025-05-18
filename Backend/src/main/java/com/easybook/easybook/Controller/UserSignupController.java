@@ -1,28 +1,31 @@
 package com.easybook.easybook.Controller;
 
+import com.easybook.easybook.Dto.UserSignupDto;
 import com.easybook.easybook.Entity.UserSignup;
-import com.easybook.easybook.Repository.UserSignupRepo;
 import com.easybook.easybook.Service.UserSignupService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/user")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserSignupController {
 
+
+    private final UserSignupService userSignupService;
+
     @Autowired
-    private UserSignupService userSignupService;
+    public UserSignupController(UserSignupService userSignupService) {
+        this.userSignupService = userSignupService;
+    }
 
     @PostMapping("/signup")
-    public ResponseEntity<UserSignup> registerUser(@Validated @RequestBody UserSignup userSignup) {
-        UserSignup savedUser = userSignupService.registerUser(userSignup);
-        return ResponseEntity.ok(savedUser);
+    public ResponseEntity<String> createUser(@Valid @RequestBody UserSignupDto userSignupDto){
+       userSignupService.createUser(userSignupDto);
+        return ResponseEntity.ok("Signup successful");
     }
 
 }
