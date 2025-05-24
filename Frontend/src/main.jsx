@@ -1,9 +1,8 @@
 import { createRoot } from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'; // use 'react-router-dom' not just 'react-router'
 import './index.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
 
 import App from './App';
 import Home from './assets/Pages/Home';
@@ -12,8 +11,7 @@ import Contact from './assets/Pages/Contact';
 import Services from './assets/Pages/Services';
 import Signup from './assets/Pages/Signup';
 import Login from './assets/Pages/Login';
-
-
+import AuthProvider from './assets/context/AuthContext';
 
 const router = createBrowserRouter([
   {
@@ -31,5 +29,8 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById('root')).render(
+  <AuthProvider>
   <RouterProvider router={router} />
+  </AuthProvider>
+  
 );

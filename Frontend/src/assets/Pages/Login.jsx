@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
-
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -20,14 +21,40 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Login data:", formData);
 
-    if (formData.email && formData.password) {
-      navigate("/");
-    } else {
+    if (!formData.email || !formData.password) {
       alert("Please enter both email and password.");
+      return;
+    } 
+    const dataToSend = {
+      email: formData.email,
+      password: formData.password
+    }
+    try{
+      const response = await fetch("http://localhost:8080/api/auth/login",{
+        method: "POST",
+        headers:{"Content-Type": "application/json",},
+        body: JSON.stringify(dataToSend),
+      });
+
+      if(response.ok){
+        const massage = await response.text();
+        console.log("Login successfully",massage)
+        alert("Login successful!")
+        login(); 
+        navigate("/");
+      }else{
+        const errorMassage = await response.text();
+        console.log("Login Failed",errorMassage);
+        alert("Login Failed"+errorMassage);
+      }
+    }catch(error)
+    {
+      console.error("Error during login:", error.message);
+      alert("An error occurred. Please try again.");
     }
   };
 

@@ -1,26 +1,29 @@
+import React from 'react';
 import { useLocation, useNavigate, NavLink } from 'react-router-dom';
-const isLoggedIn = true; 
-const userProfileImage = 'https://i.pravatar.cc/150?img=3'; 
+import { useAuth } from '../context/AuthContext';
+import {FiBookOpen,FiHeart,FiBell,FiUser,FiClock,FiLogIn,FiUserPlus,FiHome,FiInfo,FiPhone,FiTool} from 'react-icons/fi';
 
-import {
-  FiLogIn,
-  FiUserPlus,
-  FiHome,
-  FiInfo,
-  FiPhone,
-  FiTool
-} from 'react-icons/fi';
+const userProfileImage = 'https://i.pravatar.cc/150?img=2';
 
 function Navbar() {
+const {isLoggedIn} = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const mobileLinks = [
+  const LinksNoLogin = [
     { to: '/', icon: <FiHome className="text-2xl" />, label: 'Home' },
     { to: '/About', icon: <FiInfo className="text-2xl" />, label: 'About' },
     { to: '/Services', icon: <FiTool className="text-2xl" />, label: 'Services' },
     { to: '/Contact', icon: <FiPhone className="text-2xl" />, label: 'Contact' },
-    { to: '/signup', icon: <FiUserPlus className="text-2xl" />, label: 'Signup' }
+    { to: '/login', icon: <FiLogIn className="text-2xl" />, label: 'Login' },
+  ];
+
+  const LinksOkLogin = [
+    { to: '/booking', icon: <FiBookOpen className="text-2xl" />, label: 'Booking' },
+    { to: '/appointments', icon: <FiClock className="text-2xl" />, label: 'Appointment' },
+    { to: '/saved', icon: <FiHeart className="text-2xl" />, label: 'Saved' },
+    { to: '/notifications', icon: <FiBell className="text-2xl" />, label: 'Notifications' },
+    { to: '/profile', icon: <FiUser className="text-2xl" />, label: 'Profile' },
   ];
 
   return (
@@ -43,24 +46,79 @@ function Navbar() {
             />
           </button>
         ) : (
-          <button
-            className="lg:hidden w-9 h-9 bg-blue-500 text-white rounded-full flex items-center justify-center text-xl"
-            onClick={() => navigate('/login')}
-            aria-label="Login"
-          >
-            <FiLogIn/>
-          </button>
+        <button
+          className="lg:hidden w-9 h-9 bg-blue-500 text-white rounded-full flex items-center justify-center text-xl"
+          onClick={() => navigate('/signup')}
+          aria-label="signup"
+        >
+          <FiUserPlus />
+          
+        </button>
         )}
 
-
         {/* Desktop Menu */}
-        <div className="hidden lg:flex flex-row gap-9 items-center">
+        {isLoggedIn? (
+                  <div className="hidden lg:flex flex-row gap-9 items-center">
+                  <nav>
+                    <ul className="flex flex-row gap-8 items-center">
+                      {LinksOkLogin.slice(0, 4).map(({ to,icon,label }) => (
+                        <li key={to}>
+                          <NavLink
+                            to={to}
+                            className={({ isActive }) =>
+                              `flex items-center gap-1 text-xl px-2 py-1 rounded-md transition-colors duration-200 ${
+                                isActive
+                                  ? 'text-blue-600 font-semibold bg-blue-100'
+                                  : 'text-gray-700 hover:text-blue-500'
+                              }`
+                            }
+                            end={to === '/'}
+                            
+                          >
+                            <span className="text-2xl">{icon}</span>
+                            {label}
+                          </NavLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </nav>
+        
+                  {/* Login/Signup */}
+                  
+                  <button
+                  className="w-9 h-9 rounded-full overflow-hidden border-2 border-blue-500"
+                  onClick={() => navigate('/profile')}
+                  aria-label="Profile"
+                >
+                  <img
+                    src={userProfileImage}
+                    alt="User"
+                    className="w-full h-full object-cover"
+                  />
+                </button>
+
+                </div>
+        ):(        <div className="hidden lg:flex flex-row gap-9 items-center">
           <nav>
             <ul className="flex flex-row gap-8 items-center">
-              <li><NavLink to="/" className="text-xl hover:text-blue-500">Home</NavLink></li>
-              <li><NavLink to="/About" className="text-xl hover:text-blue-500">About</NavLink></li>
-              <li><NavLink to="/Services" className="text-xl hover:text-blue-500">Services</NavLink></li>
-              <li><NavLink to="/Contact" className="text-xl hover:text-blue-500">Contact</NavLink></li>
+              {LinksNoLogin.slice(0, 4).map(({ to,icon,label }) => (
+                <li key={to}>
+                  <NavLink
+                    to={to}
+                    className={({ isActive }) =>
+                      `flex items-center gap-1 text-xl px-2 py-1 rounded-md transition-colors duration-200 ${
+                        isActive
+                          ? 'text-blue-600 font-semibold bg-blue-100'
+                          : 'text-gray-700 hover:text-blue-500'
+                      }`
+                    }
+                    end={to === '/'}
+                  >
+                    <span className="text-2xl">{icon}</span>
+                    {label}
+                  </NavLink>
+                </li>
+              ))}
             </ul>
           </nav>
 
@@ -81,34 +139,49 @@ function Navbar() {
               Signup
             </button>
           </div>
-        </div>
+        </div>)}
       </div>
-
 
       {/* Bottom Navbar for Mobile */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white py-2 px-4 flex justify-around items-center z-10 border-t border-gray-300 shadow-md">
-        {mobileLinks.map(({ to, icon, label }) => {
-          const isActive = location.pathname === to;
-        
-          return (
-            <button
-              key={to}
-              onClick={() => navigate(to)}
-              className={`flex flex-col items-center justify-center px-2 cursor-pointer transition-colors duration-200 ${
-                isActive ? 'text-green-600' : 'text-gray-600 hover:text-blue-600'
-              }`}
-            >
-              <div className="pb-1">
-                {icon}
-              </div>
-              <span className={`text-xs font-medium`}>
-                {label}
-              </span>
-            </button>
-          );
-        })}
-      </div>
+      {isLoggedIn ? (
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white py-2 px-4 flex justify-around items-center z-10 border-t border-gray-300 shadow-md">
+          {LinksOkLogin.map(({ to, icon, label }) => {
+            const isActive = location.pathname === to;
 
+            return (
+              <button
+                key={to}
+                onClick={() => navigate(to)}
+                className={`flex flex-col items-center justify-center px-2 cursor-pointer transition-colors duration-200 ${
+                  isActive ? 'text-green-600' : 'text-gray-600 hover:text-blue-600'
+                }`}
+              >
+                <div className="pb-1">{icon}</div>
+                <span className="text-xs font-medium">{label}</span>
+              </button>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white py-2 px-4 flex justify-around items-center z-10 border-t border-gray-300 shadow-md">
+          {LinksNoLogin.map(({ to, icon, label }) => {
+            const isActive = location.pathname === to;
+
+            return (
+              <button
+                key={to}
+                onClick={() => navigate(to)}
+                className={`flex flex-col items-center justify-center px-2 cursor-pointer transition-colors duration-200 ${
+                  isActive ? 'text-green-600' : 'text-gray-600 hover:text-blue-600'
+                }`}
+              >
+                <div className="pb-1">{icon}</div>
+                <span className="text-xs font-medium">{label}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
     </>
   );
 }

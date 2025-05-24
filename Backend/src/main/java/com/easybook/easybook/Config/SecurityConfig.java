@@ -21,7 +21,7 @@
             http
                     .csrf(AbstractHttpConfigurer::disable) // ✅ updated for 6.1+
                     .authorizeHttpRequests(auth -> auth
-                            .requestMatchers("/api/user/signup").permitAll()  // Allow signup endpoint
+                            .requestMatchers("/api/auth/signup","/api/auth/login").permitAll()  // Allow signup endpoint
                             .anyRequest().authenticated()                     // Secure others
                     )
                     .formLogin(form -> form
