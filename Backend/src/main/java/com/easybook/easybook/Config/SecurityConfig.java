@@ -26,7 +26,7 @@
                     )
                     .formLogin(form -> form
                             .loginPage("http://localhost:5173/login")
-                            .permitAll()
+                            .permitAll() 
                     ); // default login form
 
             return http.build();
