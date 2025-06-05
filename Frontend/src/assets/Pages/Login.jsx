@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -12,49 +15,65 @@ const Login = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login data:", formData);
 
     if (!formData.email || !formData.password) {
       alert("Please enter both email and password.");
       return;
-    } 
-    const dataToSend = {
-      email: formData.email,
-      password: formData.password
     }
-    try{
-      const response = await fetch("http://localhost:8080/api/auth/login",{
+
+    setLoading(true);
+
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/login", {
         method: "POST",
-        headers:{"Content-Type": "application/json",},
-        body: JSON.stringify(dataToSend),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
       });
 
-      if(response.ok){
-        const massage = await response.text();
-        console.log("Login successfully",massage)
-        alert("Login successful!")
-        login(); 
+      if (response.ok) {
+        const data = await response.json();
+        const { token } = data;
+
+        // Store JWT token in cookies
+        if (formData.remember) {
+          Cookies.set("jwt_token", token, { expires: 0.4167 }); // ~10 hrs
+        } else {
+          Cookies.set("jwt_token", token); // session cookie
+        }
+
+        // Optional: Decode token to show user info
+        const decoded = jwtDecode(token);
+        console.log("Logged in as:", decoded);
+
+        // Update auth state and navigate
+        login(token); // Optional: pass decoded user
+        alert("Login successful!");
         navigate("/");
-      }else{
-        const errorMassage = await response.text();
-        console.log("Login Failed",errorMassage);
-        alert("Login Failed"+errorMassage);
+        
+      } else {
+        const errorText = await response.text();
+        alert("Login failed: " + errorText);
       }
-    }catch(error)
-    {
-      console.error("Error during login:", error.message);
-      alert("An error occurred. Please try again.");
+    } catch (err) {
+      console.error("Login error:", err.message);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -111,7 +130,7 @@ const Login = () => {
           <button
             type="button"
             className="text-sm text-blue-600 hover:underline"
-            onClick={() => alert("Redirect to forgot password page")}
+            onClick={() => alert("Forgot password functionality not implemented")}
           >
             Forgot Password?
           </button>
@@ -119,9 +138,12 @@ const Login = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+          disabled={loading}
+          className={`w-full py-2 rounded-lg text-white transition duration-200 ${
+            loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
+          }`}
         >
-          Login
+          {loading ? "Logging in..." : "Login"}
         </button>
       </form>
     </div>

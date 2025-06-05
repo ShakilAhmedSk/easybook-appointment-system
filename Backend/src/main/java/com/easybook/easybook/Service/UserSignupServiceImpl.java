@@ -37,11 +37,18 @@ public class UserSignupServiceImpl implements UserSignupService {
         userSignupRepo.save(user);
     }
 
-    @Override
-    public boolean loginUser(String email, String password) {
-        Optional<UserSignup> user = userSignupRepo.findByUserEmail(email);
-        return user.isPresent() &&
-                passwordEncoder.matches(password, user.get().getUserPassword());
-    }
 
+    @Override
+    public Optional<UserSignup> authenticateUser(String email, String password) {
+        Optional<UserSignup> user = userSignupRepo.findByUserEmail(email);
+        if (user.isPresent() && passwordEncoder.matches(password, user.get().getUserPassword())) {
+            return user;
+        } else {
+            return Optional.empty();
+        }
+    }
+    @Override
+    public Optional<UserSignup> findUserByEmail(String email) {
+        return userSignupRepo.findByUserEmail(email);
+    }
 }
